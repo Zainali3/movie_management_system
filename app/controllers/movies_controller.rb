@@ -19,6 +19,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/1/edit
   def edit
+    @selected_movies = @movie.actor_ids
   end
 
   # POST /movies
