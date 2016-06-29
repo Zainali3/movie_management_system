@@ -23,6 +23,9 @@
             <%= image_tag poster.image.url(:thumb) %>
           <% end %>
         </td>
+        <td>
+          <%= movie.actors.collect { |actor| actor.name }.join(', ') %>
+        </td>
         <td><%= link_to 'Show', movie %></td>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
