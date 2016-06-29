@@ -18,6 +18,11 @@
         <td><%= movie.trailer %></td>
         <td><%= raw(movie.description) %></td>
         <td><%= movie.featured %></td>
+        <td>
+          <% movie.posters.each do |poster| %>
+            <%= image_tag poster.image.url(:thumb) %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', movie %></td>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>

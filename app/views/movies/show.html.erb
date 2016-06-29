@@ -18,5 +18,10 @@
   <%= @movie.featured %>
 </p>
 
+<p>
+  <% @movie.posters.each do |poster| %>
+    <%= image_tag poster.image.url(:thumb) %>
+  <% end %>
+</p>
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>
