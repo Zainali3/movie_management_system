@@ -1,40 +1,54 @@
-<%= nested_form_for(@movie) do |f| %>
-  <% if @movie.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+<div class="wrapper container">
+  <div class="row">
+  <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <%= nested_form_for(@movie) do |f| %>
+        <% if @movie.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+            <ul>
+            <% @movie.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-      <ul>
-      <% @movie.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <div class="field">
+          <%= f.label :title %><br>
+          <%= f.text_field :title , class: 'form-control'%>
+        </div>
+        <div class="field">
+          <%= f.label :trailer %><br>
+          <%= f.text_field :trailer , class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :description %><br>
+          <%= f.cktext_area :description, rows: 10 %>
+        </div>
+        <br />
+        <div>
+        <%= f.fields_for :posters do |poster| %>
+          <%= poster.file_field :image %> <%= poster.link_to_remove "Remove poster" %>
+        <% end %>
+        <h4> <%= f.link_to_add "Add poster", :posters%>
+        </div>
+        <br />
+        <div>
+          <label>Select Actors </label>
+          <br />
+          <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true } %>
+          <br/ >
+          <br />
+        </div>
+        <br />
+        <br />
+        <div class="actions">
+          <%= f.submit "Submit", class: 'btn btn-primary' %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <div class="col-md-2"></div>
   </div>
-  <div class="field">
-    <%= f.label :trailer %><br>
-    <%= f.text_field :trailer %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.cktext_area :description, rows: 10 %>
-  </div>
-  <div class="field">
-    <%= f.label :featured %><br>
-    <%= f.check_box :featured %>
-  </div>
-
-  <%= f.fields_for :posters do |poster| %>
-    <%= poster.file_field :image %>
-    <%= poster.link_to_remove "Remove poster" %>
-  <% end %>
-  <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true } %>
-  <%= f.link_to_add "Add poster", :posters %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
