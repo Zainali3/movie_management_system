@@ -1,40 +1,45 @@
 <div class="wrapper container">
   <div class="row">
     <div class="col-md-2"></div>
-    <div class="col-md-8 " >
-      <h1>
-      <strong>Title:</strong>
-      <%= @movie.title %>
+    <div class="col-md-8 ">
+      <%= link_to '', movies_path, class: 'btn btn-success glyphicon glyphicon-arrow-left' %>
+      <h1 class="text-center">
+        <%= @movie.title %>
       </h1>
 
-      <h3>
+        <strong>Actors:</strong>
+        <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
+
+      <h3 class="text-center">
+        <% @movie.posters.each do |poster| %>
+          <%= image_tag poster.image.url(:medium) %>
+        <% end %>
+      </h3>
         <strong>Trailer:</strong>
         <br />
         <br />
         <%= raw(@movie.trailer) %>
-      </h3>
-
-      <h3>
+        <br />
+        <br />
         <strong>Description:</strong>
         <br />
         <br />
         <%= raw(@movie.description) %>
-      </h3>
-
-      <h3>
-        <strong>Posters: </strong>
-        <% @movie.posters.each do |poster| %>
-          <%= image_tag poster.image.url(:thumb) %>
-        <% end %>
-
-      <h3>
-        <strong>Actors:</strong>
-        <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
-      </h3>
+        <strong>Release Date:</strong>
+        <%= @movie.release_date %>
+        <br />
+        <br />
+        <strong>Genre:</strong>
+        <%= @movie.genre %>
+        <br />
+        <br />
+        <strong>Duration:</strong>
+        <%= @movie.duration %>
+        <br />
+        <br />
       <br />
       <br />
       <div>
-        <%= link_to '<-', movies_path, class: 'btn btn-success' %>
         <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-primary' %>
       </div>
     </div>

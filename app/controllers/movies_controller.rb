@@ -42,7 +42,7 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1.json
   def update
     respond_to do |format|
-      if @movie.update(movie_params)
+      if @movie.update(movie_params.merge({genre: params[:movie][:genre].join(',')}))
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
@@ -70,7 +70,7 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:title, :trailer, :description, :featured, :approved, :release_date, :duration, :genre, actor_ids: [],
+      params.require(:movie).permit(:title, :trailer, :description, :featured, :approved, :release_date, :duration, actor_ids: [],
         posters_attributes: [:id, :image, :_destroy])
     end
 end

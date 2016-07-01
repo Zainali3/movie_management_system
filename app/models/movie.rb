@@ -6,4 +6,10 @@ class Movie < ActiveRecord::Base
   accepts_nested_attributes_for :posters, allow_destroy: true
   has_many :casts , dependent: :destroy
   has_many :actors, through: :casts
+
+  OPTIONS = ["Action", "Funny", "Thriller", "Horror"]
+
+  def first_poster
+    posters.first
+  end
 end
