@@ -18,10 +18,22 @@
           <%= f.label :title %><br>
           <%= f.text_field :title , class: 'form-control', required: true, maxlength: 150 %>
         </div>
+
         <div class="field">
           <%= f.label :trailer %><br>
-          <%= f.text_area :trailer , class: 'form-control', required: true, maxlength: 1000 %>
+          <%= f.text_area :trailer, class: 'form-control', required: true %>
         </div>
+
+        <div class="field">
+          <%= f.label :release_date %><br>
+          <%= f.date_field :release_date, required: true, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :duration %><br>
+          <%= f.number_field :duration, required: true, class: 'form-control' %>
+        </div>
+
 
         <div class="field">
           <%= f.label :description %><br>
@@ -35,6 +47,10 @@
           <p> <%= f.link_to_add "Add poster", :posters %></p>
         </div>
         <br />
+        <div class="field">
+          <%= f.label :genre %><br>
+          <%= f.select :genre, options_for_select(Movie::OPTIONS), {}, { multiple: true } %>
+        </div>
         <div>
           <label>Select Actors </label>
           <br />
@@ -45,7 +61,7 @@
         <br />
         <br />
         <div class="actions">
-          <%= f.submit "Submit", class: 'btn btn-primary' %>
+          <%= f.submit "Submit", class: 'btn btn-success' %>
         </div>
       <% end %>
     </div>

@@ -2,8 +2,10 @@
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-8 " >
-      <h1 class="text-center">Listing Movies</h1>
-
+      <h1 class="text-center">Movies</h1>
+      <%= button_to 'New Movie', new_movie_path, method: "get", class: 'btn btn-primary' %>
+      <br />
+      <br />
       <table class="table table-striped">
         <thead>
           <tr>
@@ -19,22 +21,21 @@
             <tr>
               <td><%= movie.title %></td>
               <td>
-                <% movie.posters.each do |poster| %>
-                  <%= image_tag poster.image.url(:thumb) %>
+                <% if movie.first_poster.present? %>
+                  <%= image_tag movie.posters.first.image.url(:thumb) %>
                 <% end %>
               </td>
               <td>
                 <%= movie.actors.collect { |actor| actor.name }.join(', ') %>
               </td>
-              <td><%= button_to 'Show', movie , method: "get" %></td>
-              <td><%= button_to 'Edit', edit_movie_path(movie), method: "get" %></td>
-              <td><%= button_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= button_to 'Show', movie , method: "get", class: 'btn btn-success' %></td>
+              <td><%= button_to 'Edit', edit_movie_path(movie), method: "get", class: 'btn btn-primary' %></td>
+              <td><%= button_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
       <br>
-      <%= button_to 'New Movie', new_movie_path, method: "get", class: 'btn btn-primary' %>
     </div>
     <div class="col-md-1"></div>
   </div>
