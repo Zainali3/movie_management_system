@@ -6,41 +6,43 @@
       <h1 class="text-center">
         <%= @movie.title %>
       </h1>
-
-        <strong>Actors:</strong>
-        <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
-
-      <h3 class="text-center">
+      <strong>Actors:</strong>
+      <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
+      <div class="poster" id="poster">
         <% @movie.posters.each do |poster| %>
           <%= image_tag poster.image.url(:medium) %>
         <% end %>
-      </h3>
-        <strong>Trailer:</strong>
-        <br />
-        <br />
-        <%= raw(@movie.trailer) %>
-        <br />
-        <br />
-        <strong>Description:</strong>
-        <br />
-        <br />
-        <%= raw(@movie.description) %>
-        <strong>Release Date:</strong>
-        <%= @movie.release_date %>
-        <br />
-        <br />
-        <strong>Genre:</strong>
-        <%= @movie.genre %>
-        <br />
-        <br />
-        <strong>Duration:</strong>
-        <%= @movie.duration %>
-        <br />
-        <br />
+      </div>
+      <strong>Trailer:</strong>
+      <br />
+      <br />
+      <%= raw(@movie.trailer) %>
+      <br />
+      <br />
+      <strong>Description:</strong>
+      <br />
+      <br />
+      <%= raw(@movie.description) %>
+      <strong>Release Date:</strong>
+      <%= @movie.release_date %>
+      <br />
+      <br />
+      <strong>Genre:</strong>
+      <%= @movie.genre %>
+      <br />
+      <br />
+      <strong>Duration:</strong>
+      <%= @movie.duration %>
+      <span> mins</span>
+      <br />
+      <br />
       <br />
       <br />
       <div>
-        <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-primary' %>
+        <% if user_signed_in? %>
+          <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-primary' %>
+          <%= link_to 'Destroy', movie_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <% end %>
       </div>
     </div>
     <div class="col-md-2"></div>

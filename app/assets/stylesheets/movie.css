@@ -1,3 +1,35 @@
 .fixed-height {
   min-height: 550px;
 }
+
+#poster {
+  margin-top: 10px;
+  height: 330px;
+  width: 750px !important;
+  border-bottom: 1px solid #ccc;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  width: 30em;
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+.alignment {
+ margin-top: 150px;
+}
+
+.index-movie-alignment {
+ padding: 10px;
+}
+
+.movie-title-alignment {
+ text-align: center;
+}
+
+.movie-anchor {
+ display: block;
+}
+
+.movie-img {
+ width: 100%;
+}

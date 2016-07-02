@@ -30,7 +30,7 @@
         </div>
 
         <div class="field">
-          <%= f.label :duration %><br>
+          <%= f.label 'duration (in mins)' %>
           <%= f.number_field :duration, required: true, class: 'form-control' %>
         </div>
 
@@ -44,17 +44,17 @@
           <%= f.fields_for :posters do |poster| %>
             <%= poster.file_field :image %> <%= poster.link_to_remove "Remove poster" %>
           <% end %>
-          <p> <%= f.link_to_add "Add poster", :posters %></p>
+          <p> <%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
         </div>
         <br />
         <div class="field">
           <%= f.label :genre %><br>
-          <%= f.select :genre, options_for_select(Movie::OPTIONS), {}, { multiple: true } %>
+          <%= f.select :genre, options_for_select(Movie::OPTIONS), {}, { multiple: true, class: 'form-control' } %>
         </div>
         <div>
           <label>Select Actors </label>
           <br />
-          <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true } %>
+          <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true, class: 'form-control' } %>
           <br/ >
           <br />
         </div>
