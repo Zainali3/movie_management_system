@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   # GET /movies
@@ -25,7 +26,7 @@ class MoviesController < ApplicationController
   # POST /movies
   # POST /movies.json
   def create
-    @movie = Movie.new(movie_params)
+    @movie = Movie.new(movie_params.merge({genre: params[:movie][:genre].join(' ')}))
 
     respond_to do |format|
       if @movie.save
@@ -42,7 +43,7 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1.json
   def update
     respond_to do |format|
-      if @movie.update(movie_params.merge({genre: params[:movie][:genre].join(',')}))
+      if @movie.update(movie_params.merge({genre: params[:movie][:genre].join(' ')}))
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
