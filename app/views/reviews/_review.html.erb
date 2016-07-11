@@ -1,0 +1,6 @@
+<tr id="<%= review.id %>">
+  <td>Review:</td>
+  <td><%= review.review %></td>
+  <td><%= link_to 'Edit', edit_movie_review_path(@movie, review) %></td>
+  <td> <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

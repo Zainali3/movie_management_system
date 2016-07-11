@@ -2,30 +2,23 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
-  # GET /movies
-  # GET /movies.json
   def index
     @movies = params[:type] =='featured' ? Movie.featured_movie : Movie.latest_movie
     @movies = @movies.page(params[:page])
   end
 
-  # GET /movies/1
-  # GET /movies/1.json
   def show
+    @review = @movie.reviews.build
   end
 
-  # GET /movies/new
   def new
     @movie = Movie.new
   end
 
-  # GET /movies/1/edit
   def edit
     @selected_movies = @movie.actor_ids
   end
 
-  # POST /movies
-  # POST /movies.json
   def create
     @movie = Movie.new(movie_params.merge({genre: params[:movie][:genre].join(' ')}))
 
@@ -40,8 +33,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /movies/1
-  # PATCH/PUT /movies/1.json
   def update
     respond_to do |format|
       if @movie.update(movie_params.merge({genre: params[:movie][:genre].join(' ')}))
@@ -54,8 +45,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  # DELETE /movies/1
-  # DELETE /movies/1.json
   def destroy
     @movie.destroy
     respond_to do |format|
@@ -65,12 +54,10 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :trailer, :description, :featured, :approved, :release_date, :duration, actor_ids: [],
         posters_attributes: [:id, :image, :_destroy])
