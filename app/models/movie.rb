@@ -1,4 +1,5 @@
 class Movie < ActiveRecord::Base
+  paginates_per 2
   validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
   validates :trailer, presence: true
   validates :description, presence: true
@@ -12,4 +13,6 @@ class Movie < ActiveRecord::Base
   def first_poster
     posters.first
   end
+  scope :featured_movie, -> { where(featured: true) }
+  scope :latest_movie, -> { order("release_date DESC") }
 end

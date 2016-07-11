@@ -5,7 +5,8 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
+    @movies = params[:type] =='featured' ? Movie.featured_movie : Movie.latest_movie
+    @movies = @movies.page(params[:page])
   end
 
   # GET /movies/1
