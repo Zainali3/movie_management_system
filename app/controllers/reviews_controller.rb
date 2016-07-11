@@ -4,12 +4,12 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @review=Review.new
+    @review = Review.new
   end
 
   def create
     @review = @movie.reviews.new(review_params)
-    @review.user_id=current_user.id
+    @review.user_id = current_user.id
     @review.save
   end
 
@@ -38,7 +38,7 @@ class ReviewsController < ApplicationController
       @review = Review.find(params[:id])
     end
 
-    def set_movie
+    def find_movie
       @movie = Movie.find(params[:movie_id])
     end
 
