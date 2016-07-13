@@ -46,24 +46,26 @@
         <% end %>
       </div>
       <% if user_signed_in? %>
-        <h2>Add a Rating:</h2>
-        <%= form_for([@movie, @movie.rates.build]) do |f| %>
-          <%= f.label :rating %><br>
-          <div class='rating-form'></div>
+        <div class="movie-reviews">
+          <h2>Add a Rating:</h2>
+          <%= form_for([@movie, @movie.rates.build]) do |f| %>
+            <%= f.label :rating %><br>
+            <div class='rating-form'></div>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
     <div class="col-md-2"></div>
   </div>
 </div>
-<div>
+<div class="movie-reviews">
   <% if user_signed_in? %>
     <%= render 'show' %>
     <div id='movie-reviews'></div>
     <h2>Add a Review:</h2>
     <%= form_for([@movie, @review], remote: true) do |f| %>
       <%= f.label :review %><br>
-      <%= f.text_area :review %>
+      <%= f.text_area :review, class: 'form-control'%>
       <%= f.submit %>
     <% end %>
   <% end %>

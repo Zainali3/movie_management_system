@@ -1,16 +1,20 @@
+<div class="movie-reviews">
+  <% @movie.rates.each do |rating| %>
+    <% if rating.user_id == current_user.id %>
+      <strong>Your Ratings:</strong>
+      <div class='star-rating' data-score = <%= rating.rating %> ></div>
+    <% end %>
+  <% end %>
+</div>
 <% @movie.reviews.select(&:persisted?).each do |review| %>
-  <div>
+  <div class="movie-reviews">
     <strong>Review:</strong>
     <%= review.review %>
     <% if review.user_id == current_user.id %>
-      <%= link_to 'Edit', edit_movie_review_path(@movie, review) %>
-      <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-primary btn-xs' %>
+      <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
     <% end %>
+    <%= link_to 'Report', movie_review_report_reviews_path(@movie, review), remote: true, method: :post, class: 'btn btn-warning btn-xs'%>
   </div>
 <% end %>
-<% @movie.rates.each do |rating| %>
-  <% if rating.user_id == current_user.id %>
-    <strong>Ratings:</strong>
-    <div class='star-rating' data-score = <%= rating.rating %> ></div>
-  <% end %>
-<% end %>
+

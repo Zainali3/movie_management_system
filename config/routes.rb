@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :movies do
-    resources :reviews
+    resources :reviews do
+    resources :report_reviews, only: [:create]
+  end
     resources :rates
   end
   devise_for :users
