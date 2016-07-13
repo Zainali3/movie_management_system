@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711051743) do
+ActiveRecord::Schema.define(version: 20160713111156) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -57,12 +57,34 @@ ActiveRecord::Schema.define(version: 20160711051743) do
     t.boolean  "approved"
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.text     "review",     limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "user_id",    limit: 4
+  create_table "rates", force: :cascade do |t|
+    t.integer  "rating",     limit: 4
     t.integer  "movie_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "rates", ["movie_id"], name: "index_rates_on_movie_id", using: :btree
+  add_index "rates", ["user_id"], name: "index_rates_on_user_id", using: :btree
+
+  create_table "report_reviews", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "review_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "report_reviews", ["review_id"], name: "index_report_reviews_on_review_id", using: :btree
+  add_index "report_reviews", ["user_id"], name: "index_report_reviews_on_user_id", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "review",       limit: 65535
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "user_id",      limit: 4
+    t.integer  "movie_id",     limit: 4
+    t.integer  "report_count", limit: 4,     default: 0
   end
 
   add_index "reviews", ["movie_id"], name: "index_reviews_on_movie_id", using: :btree
@@ -93,6 +115,10 @@ ActiveRecord::Schema.define(version: 20160711051743) do
 
   add_foreign_key "casts", "actors"
   add_foreign_key "casts", "movies"
+  add_foreign_key "rates", "movies"
+  add_foreign_key "rates", "users"
+  add_foreign_key "report_reviews", "reviews"
+  add_foreign_key "report_reviews", "users"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
 end
