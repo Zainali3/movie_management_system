@@ -3,6 +3,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8 ">
       <%= link_to '', movies_path, class: 'btn btn-success glyphicon glyphicon-arrow-left' %>
+      <div class='star-rating' data-score= <%= @avg_rating %> > </div>
       <h1 class="text-center">
         <%= @movie.title %>
       </h1>
@@ -44,17 +45,26 @@
           <%= link_to 'Destroy', movie_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         <% end %>
       </div>
+      <% if user_signed_in? %>
+        <h2>Add a Rating:</h2>
+        <%= form_for([@movie, @movie.rates.build]) do |f| %>
+          <%= f.label :rating %><br>
+          <div class='rating-form'></div>
+        <% end %>
+      <% end %>
     </div>
     <div class="col-md-2"></div>
   </div>
 </div>
-<% if user_signed_in? %>
-  <%= render 'show' %>
-  <div id='movie-reviews'></div>
-  <h2>Add a Review:</h2>
-  <%= form_for([@movie, @review], remote: true) do |f| %>
-    <%= f.label :review %><br>
-    <%= f.text_area :review %>
-    <%= f.submit %>
+<div>
+  <% if user_signed_in? %>
+    <%= render 'show' %>
+    <div id='movie-reviews'></div>
+    <h2>Add a Review:</h2>
+    <%= form_for([@movie, @review], remote: true) do |f| %>
+      <%= f.label :review %><br>
+      <%= f.text_area :review %>
+      <%= f.submit %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

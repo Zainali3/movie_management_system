@@ -8,3 +8,9 @@
     <% end %>
   </div>
 <% end %>
+<% @movie.rates.each do |rating| %>
+  <% if rating.user_id == current_user.id %>
+    <strong>Ratings:</strong>
+    <div class='star-rating' data-score = <%= rating.rating %> ></div>
+  <% end %>
+<% end %>

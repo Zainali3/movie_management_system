@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
 
   def show
     @review = @movie.reviews.build
+    @avg_rating = Rate.movie_avg_rating(@movie)
   end
 
   def new
