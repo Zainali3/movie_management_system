@@ -5,4 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_one :attachment, as: :attachable
   accepts_nested_attributes_for :attachment
+
+  def show_profile_picture(style = :original)
+   profile_picture = self.attachment
+   profile_picture ? profile_picture.try(:image).url(style) : "#{style.to_s}/missing.png"
+  end
 end
