@@ -1,3 +1,4 @@
+<div class="clearfix"></div>
 <div class="movie-reviews">
   <% @movie.rates.each do |rating| %>
     <% if rating.user_id == current_user.id %>
@@ -6,10 +7,12 @@
     <% end %>
   <% end %>
 </div>
+<div class="clearfix"></div>
 <% @movie.reviews.select(&:persisted?).each do |review| %>
   <div class="movie-reviews">
     <strong>Review:</strong>
     <%= review.review %>
+    <div class="clearfix"></div>
     <% if review.user_id == current_user.id %>
       <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-primary btn-xs' %>
       <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>

@@ -1,5 +1,4 @@
 class Movie < ActiveRecord::Base
-  OPTIONS = ["Action", "Funny", "Thriller", "Horror"]
 
   paginates_per 2
 
@@ -20,5 +19,9 @@ class Movie < ActiveRecord::Base
   def first_poster
     posters.first
   end
+
+  def movie_cast
+   self.actors.pluck(:name).join(', ')
+ end
 
 end

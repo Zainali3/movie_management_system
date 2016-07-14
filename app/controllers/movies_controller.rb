@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new(movie_params.merge({genre: params[:movie][:genre].join(' ')}))
+    @movie = Movie.new(movie_params)
 
     respond_to do |format|
       if @movie.save
@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @movie.update(movie_params.merge({genre: params[:movie][:genre].join(' ')}))
+      if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
@@ -60,7 +60,7 @@ class MoviesController < ApplicationController
     end
 
     def movie_params
-      params.require(:movie).permit(:title, :trailer, :description, :featured, :approved, :release_date, :duration, actor_ids: [],
+      params.require(:movie).permit(:title, :trailer, :genre, :description, :featured, :approved, :release_date, :duration, actor_ids: [],
         posters_attributes: [:id, :image, :_destroy])
     end
 end

@@ -40,21 +40,25 @@
           <%= f.cktext_area :description, rows: 10, required: true %>
         </div>
         <br />
-        <div>
+        <div class="field">
           <%= f.fields_for :posters do |poster| %>
-            <%= poster.file_field :image %> <%= poster.link_to_remove "Remove poster" %>
+            <%= poster.file_field :image %>
+              <% if @movie.id %>
+                <%= image_tag render_image poster ,:thumb %>
+              <% end %> 
+              <%= poster.link_to_remove "Remove poster" %>
           <% end %>
           <p> <%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
         </div>
         <br />
         <div class="field">
           <%= f.label :genre %><br>
-          <%= f.select :genre, options_for_select(Movie::OPTIONS), {}, { multiple: true, class: 'form-control' } %>
+          <%= f.text_field :genre , class: 'form-control', required: true, maxlength: 15 %>
         </div>
         <div>
           <label>Select Actors </label>
           <br />
-          <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true, class: 'form-control' } %>
+          <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true, class: 'form-control', required: true } %>
           <br/ >
           <br />
         </div>

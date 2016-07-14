@@ -1,11 +1,12 @@
 <div class="movie-reviews">
-<tr id="<%= review.id %>">
-  <strong>Review:</strong>
-  <td><%= review.review %></td>
-  <% if review.user_id==current_user.id %>
-  <td><%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-primary btn-xs'%></td>
-  <td> <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?',class: 'btn btn-danger btn-xs' } %></td>
-  <td><%= link_to 'Report', movie_review_report_reviews_path(@movie, review), class: 'btn btn-warning btn-xs', remote: true, method: :post %></td>
-  <% end %>
-</tr>
+  <tr id="<%= review.id %>">
+    <strong>Review:</strong>
+    <td><%= review.review %></td>
+    <% if review.user_id==current_user.id %>
+      <div class="clearfix"></div>
+      <td><%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-primary btn-xs'%></td>
+      <td><%= link_to 'Destroy', [@movie, review], method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Report', movie_review_report_reviews_path(@movie, review), class: 'btn btn-warning btn-xs', remote: true, method: :post %></td>
+    <% end %>
+  </tr>
 </div>

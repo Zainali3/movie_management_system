@@ -15,4 +15,9 @@ module ApplicationHelper
       flash_type.to_s
     end
   end
+
+  def render_image(image,file_size)
+   image.object.image.url(file_size)
+ end
+
 end

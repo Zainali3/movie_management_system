@@ -64,8 +64,8 @@
     <div id='movie-reviews'></div>
     <h2>Add a Review:</h2>
     <%= form_for([@movie, @review], remote: true) do |f| %>
-      <%= f.label :review %><br>
-      <%= f.text_area :review, class: 'form-control'%>
+      <%= f.label "Review" %><br>
+      <%= f.text_area :review, class: 'form-control', required: true, maxlength: 150, minlength: 5 %>
       <%= f.submit %>
     <% end %>
   <% end %>
