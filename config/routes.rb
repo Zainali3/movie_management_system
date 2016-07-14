@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   resources :movies do
     resources :reviews do
     resources :report_reviews, only: [:create]
