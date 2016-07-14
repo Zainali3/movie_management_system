@@ -32,6 +32,7 @@ gem 'nested_form'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'bootstrap-sass'
+gem 'activeadmin', '~> 1.0.0.pre4'
 
 gem 'autoprefixer-rails'
 
