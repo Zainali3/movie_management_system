@@ -8,11 +8,12 @@ class User < ActiveRecord::Base
 
   has_one :attachment, as: :attachable
   has_many :report_reviews
+  has_many :rates
   accepts_nested_attributes_for :attachment
 
   def show_profile_picture(style = :original)
-   profile_picture = self.attachment
-   profile_picture ? profile_picture.try(:image).url(style) : "#{style.to_s}/missing.png"
+    profile_picture = self.attachment
+    profile_picture ? profile_picture.try(:image).url(style) : "#{style.to_s}/missing.png"
   end
 
 end

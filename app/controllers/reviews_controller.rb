@@ -16,11 +16,11 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        format.html { redirect_to movie_path(@movie), notice: 'Review was successfully updated.' }
-        format.json { render :show, status: :ok, location: @review }
+        format.html { redirect_to @review.movie, notice: 'Review was successfully updated.' }
+        format.js
       else
-        format.html { render :edit }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.html { redirect_to @review.movie, notice: 'Review could not be updated' }
+        format.js
       end
     end
   end
@@ -28,7 +28,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     respond_to do |format|
-      format.html { redirect_to movie_path(@movie), notice: 'Review was successfully destroyed.' }
+      format.html { redirect_to @movie, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

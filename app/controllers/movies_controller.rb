@@ -9,7 +9,12 @@ class MoviesController < ApplicationController
 
   def show
     @review = @movie.reviews.build
-    @avg_rating = Rate.movie_avg_rating(@movie)
+    @rating = @movie.get_ratings(current_user) if user_signed_in?
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @movie }
+    end
   end
 
   def new
