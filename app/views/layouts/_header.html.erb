@@ -3,7 +3,7 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Movie Management System</a>
     </div>
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav pull-right">
       <% if user_signed_in? %>
         <li class="active"><a href="#">Logged in as <strong><%= current_user.email %></strong>.</a></li>
         <li><%= image_tag current_user.show_profile_picture(:medium), width: "35px", height:"50px"; %></li>

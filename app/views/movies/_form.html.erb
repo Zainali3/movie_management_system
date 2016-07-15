@@ -42,10 +42,10 @@
         <br />
         <div class="field">
           <%= f.fields_for :posters do |poster| %>
+          <% unless poster.object.image.url(:medium) == 'medium/missing.png' %>
+            <div><%= image_tag poster.object.image.url(:thumb) %></div>
+          <% end %>
             <%= poster.file_field :image %>
-              <% if @movie.id %>
-                <%= image_tag render_image poster ,:thumb %>
-              <% end %> 
               <%= poster.link_to_remove "Remove poster" %>
           <% end %>
           <p> <%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
