@@ -1,61 +1,64 @@
-<div class="wrapper container">
+<div class="wrapper" id="movie-container" data-movie="<%= @movie.id %>" data-rating="<%= @rating.id if user_signed_in? %>">
+
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8 ">
       <%= link_to '', movies_path, class: 'btn btn-success glyphicon glyphicon-arrow-left' %>
-      <div class='star-rating' data-score= <%= @avg_rating %> > </div>
-      <h1 class="text-center">
-        <%= @movie.title %>
-      </h1>
-      <strong>Actors:</strong>
-      <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
-      <div class="poster" id="poster">
-        <% @movie.posters.each do |poster| %>
-          <%= image_tag poster.image.url(:medium) %>
-        <% end %>
-      </div>
-      <strong>Trailer:</strong>
-      <br />
-      <br />
-      <%= raw(@movie.trailer) %>
-      <br />
-      <br />
-      <strong>Description:</strong>
-      <br />
-      <br />
-      <%= raw(@movie.description) %>
-      <strong>Release Date:</strong>
-      <%= @movie.release_date %>
-      <br />
-      <br />
-      <strong>Genre:</strong>
-      <%= @movie.genre %>
-      <br />
-      <br />
-      <strong>Duration:</strong>
-      <%= @movie.duration %>
-      <span> mins</span>
-      <br />
-      <br />
-      <br />
-      <br />
-      <div>
-        <% if user_signed_in? %>
-          <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-primary' %>
-          <%= link_to 'Destroy', movie_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-        <% end %>
-      </div>
-      <% if user_signed_in? %>
-        <div class="movie-reviews">
-          <h2>Add a Rating:</h2>
-          <%= form_for([@movie, @movie.rates.build]) do |f| %>
-            <%= f.label :rating %><br>
-            <div class='rating-form'></div>
+        <h1 class="text-center">
+          <%= @movie.title %>
+        </h1>
+        <strong>Actors:</strong>
+        <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
+        <div class="poster" id="poster">
+          <% @movie.posters.each do |poster| %>
+            <%= image_tag poster.image.url(:medium) %>
           <% end %>
+        </div>
+        <strong>Trailer:</strong>
+        <br />
+        <br />
+        <%= raw(@movie.trailer) %>
+        <br />
+        <br />
+        <strong>Description:</strong>
+        <br />
+        <br />
+        <%= raw(@movie.description) %>
+        <strong>Release Date:</strong>
+        <%= @movie.release_date.strftime('%m-%d-%Y') %>
+        <br />
+        <br />
+        <strong>Genre:</strong>
+        <%= @movie.genre %>
+        <br />
+        <br />
+        <strong>Duration:</strong>
+        <%= @movie.duration %>
+        <span> mins</span>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+          <% if user_signed_in? %>
+            <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-primary' %>
+            <%= link_to 'Destroy', movie_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+        <% if user_signed_in? %>
+          <div>
+            <h2>Add Rating:</h2>
+            <div class='star-rating' data-score=<%= @rating.rating %>></div>
+          </div>
         <% end %>
+
+        <div>
+          <h2>Rating:</h2>
+          <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
+        </div>
       </div>
+      <div class="col-md-2"></div>
     </div>
-    <div class="col-md-2"></div>
   </div>
 </div>
 <div class="movie-reviews">

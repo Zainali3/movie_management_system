@@ -1,0 +1,11 @@
+<% @movie.reviews.select(&:persisted?).each do |review| %>
+  <div id="<%= review.id %>">
+    <strong>Review:</strong>
+    <%= review.review %>
+    <% if user_signed_in? %>
+      <div class='clearfix'></div>
+      <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-xs btn-success', remote: true %>
+      <%= link_to 'Destroy', [@movie, review], remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+    <% end %>
+  </div>
+<% end %>
