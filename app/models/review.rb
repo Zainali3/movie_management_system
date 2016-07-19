@@ -4,4 +4,8 @@ class Review < ActiveRecord::Base
   has_many :report_reviews
   validates :review, presence: true,
                     length: { minimum: 5 }
+
+  def reported_by?(user_id)
+    self.report_reviews.where(user_id: user_id).present?
+  end
 end

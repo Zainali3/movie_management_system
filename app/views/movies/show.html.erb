@@ -7,8 +7,13 @@
         <h1 class="text-center">
           <%= @movie.title %>
         </h1>
-        <strong>Actors:</strong>
-        <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
+        <div>
+          <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
+        </div>
+        <div class="text-center">
+          <strong>Actors:</strong>
+          <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
+        </div>
         <div class="poster" id="poster">
           <% @movie.posters.each do |poster| %>
             <%= image_tag poster.image.url(:medium) %>
@@ -20,6 +25,13 @@
         <%= raw(@movie.trailer) %>
         <br />
         <br />
+        <% if user_signed_in? %>
+          <div>
+            <strong>Add Rating:</strong>
+            <span class='star-rating' data-score=<%= @rating.rating %>></span>
+          </div>
+        <% end %>
+        <div class="clearfix"></div>
         <strong>Description:</strong>
         <br />
         <br />
@@ -41,20 +53,12 @@
         <br />
         <div>
           <% if user_signed_in? %>
-            <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-primary' %>
-            <%= link_to 'Destroy', movie_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% if @movie.added_to_favorites_by?(current_user.id) %>
+              <div class='glyphicon glyphicon-heart glyphicon-size'></div>
+            <% else %>
+              <span id="movie-<%= @movie.id %>-<%= current_user.id %>"><%= link_to 'Add to Favourites', movie_favourite_movies_path(@movie), class: 'btn btn-md btn-primary ', remote: true, method: :post %></span>
+            <% end %>
           <% end %>
-        </div>
-        <% if user_signed_in? %>
-          <div>
-            <h2>Add Rating:</h2>
-            <div class='star-rating' data-score=<%= @rating.rating %>></div>
-          </div>
-        <% end %>
-
-        <div>
-          <h2>Rating:</h2>
-          <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
         </div>
       </div>
       <div class="col-md-2"></div>
@@ -65,11 +69,11 @@
   <% if user_signed_in? %>
     <%= render 'show' %>
     <div id='movie-reviews'></div>
-    <h2>Add a Review:</h2>
+    <h3>Add a Review:</h3>
     <%= form_for([@movie, @review], remote: true) do |f| %>
       <%= f.label "Review" %><br>
-      <%= f.text_area :review, class: 'form-control', required: true, maxlength: 150, minlength: 5 %>
-      <%= f.submit %>
+      <%= f.text_area :review, class: 'form-control ', required: true, maxlength: 150, minlength: 5 %>
+      <%= f.submit class: 'btn btn-md btn-primary '%>
     <% end %>
   <% end %>
 </div>

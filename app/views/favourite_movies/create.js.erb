@@ -1,5 +1,1 @@
-<% if @favourite %>
-  alert('Added to Favourites')
-<% else %>
-  alert('Already Added to Favourites')
-<% end %>
+$('span#'+ "movie-<%= @movie.id %>-<%= current_user.id %>").html("<div class='glyphicon glyphicon-heart glyphicon-size'></div>");

@@ -53,5 +53,8 @@ class Movie < ActiveRecord::Base
     end
   end
 
+  def added_to_favorites_by?(user_id)
+    FavouriteMovie.exists?(user_id: user_id, movie_id: self.id)
+  end
 
 end
