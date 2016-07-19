@@ -1,20 +1,20 @@
 class MoviesController < ApplicationController
+
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
-    @movies = params[:type] =='featured' ? Movie.featured_movie : Movie.latest_movie
+
+    @movies = Movie.get_movies_type(params[:type])
     @movies = @movies.page(params[:page])
+
   end
 
   def show
+
     @review = @movie.reviews.build
     @rating = @movie.get_ratings(current_user) if user_signed_in?
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @movie }
-    end
   end
 
   def new

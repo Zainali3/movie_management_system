@@ -1,0 +1,19 @@
+<div class='container'>
+  <h3 class='text-center'>Favourite Movies</h3>
+  <div class='container-fluid'>
+    <div class='row'>
+      <% @favourite_movies.each do |favourite| %>
+        <div class='col-md-3' class='index-movie-alignment'>
+          <%= link_to movie_path(favourite.movie.id), class: 'movie-anchor' do %>
+            <%= image_tag favourite.movie.first_poster.image.url(:medium), class: 'movie-img' %>
+          <% end %>
+          <div class='movie-title-alignment'>
+            <strong><%= favourite.movie.title %></strong>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= paginate @favourite_movies %>
+  </div>
+</div>
+<%= render 'favourite_movies/favourite_movies' %>

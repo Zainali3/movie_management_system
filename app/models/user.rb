@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_one :attachment, as: :attachable
   has_many :report_reviews
   has_many :rates
+  has_many :favourite_movies
+
   accepts_nested_attributes_for :attachment
 
   def show_profile_picture(style = :original)
