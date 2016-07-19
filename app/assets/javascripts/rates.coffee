@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 set_average = (avg) ->
   $('.avg-star-rating').raty 'set', score: avg
-$ ->
+
+$(document).on 'page:load ready', ->
   $('.rating').raty
     path: '/assets'
     readOnly: true
