@@ -3,9 +3,9 @@ class RatesController < ApplicationController
   before_action :set_movie
 
   def create
-   @rating = @movie.rates.new(rating_params)
-   @rating.user_id = current_user.id
-   respond_to do |format|
+    @rating = @movie.rates.new(rating_params)
+    @rating.user_id = current_user.id
+    respond_to do |format|
       if @rating.save
         format.html { redirect_to @rating, notice: 'Rating was successfully created.' }
         format.json { render :show, status: :created, location: @rating }

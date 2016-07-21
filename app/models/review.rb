@@ -1,7 +1,7 @@
 class Review < ActiveRecord::Base
   belongs_to :movie
   belongs_to :user
-  has_many :report_reviews
+  has_many :report_reviews, dependent: :destroy
   validates :review, presence: true,
                     length: { minimum: 5 }
 

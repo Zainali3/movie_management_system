@@ -1,14 +1,19 @@
 class MoviesController < ApplicationController
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
-    @movies = Movie.search_movies(params).page(params[:page]).per(Movie::PER_PAGE)
+    @movies = Movie.search_movies(params)
+    if @movies.present?
+      @movies = @movies.page(params[:page]).per(Movie::PER_PAGE)
+    else
+      flash[:notice] = "No movies found"
+    end
   end
 
   def show
-
     @review = @movie.reviews.build
     @rating = @movie.get_ratings(current_user) if user_signed_in?
 
@@ -58,11 +63,15 @@ class MoviesController < ApplicationController
 
   private
     def set_movie
-      @movie = Movie.find(params[:id])
+      @movie = Movie.find_by_id(params[:id])
     end
 
     def movie_params
       params.require(:movie).permit(:title, :trailer, :genre, :description, :featured, :approved, :release_date, :duration, actor_ids: [],
         posters_attributes: [:id, :image, :_destroy])
     end
+
+  def not_found
+    render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+  end
 end
