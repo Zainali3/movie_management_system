@@ -2,14 +2,27 @@
 
   <div class="row">
     <div class="col-md-2"></div>
+
     <div class="col-md-8 ">
+
       <%= link_to '', movies_path, class: 'btn btn-success glyphicon glyphicon-arrow-left' %>
         <h1 class="text-center">
           <%= @movie.title %>
         </h1>
-        <div>
-          <div class='avg-star-rating' data-score=<%= @movie.get_average %> ></div>
+        <div class="pull-right">
+          <% if user_signed_in? %>
+            <% if @movie.added_to_favorites_by?(current_user.id) %>
+              <div class='glyphicon glyphicon-heart glyphicon-size'></div>
+            <% else %>
+              <span id="movie-<%= @movie.id %>-<%= current_user.id %>"><%= link_to 'Add to Favourites', movie_favourite_movies_path(@movie), class: 'btn btn-md btn-primary ', remote: true, method: :post %></span>
+            <% end %>
+          <% end %>
         </div>
+
+        <div>
+          <div class='avg-star-rating col-md-offset-5' data-score=<%= @movie.get_average %> ></div>
+        </div>
+        <div class="newline"></div>
         <div class="text-center">
           <strong>Actors:</strong>
           <%= @movie.actors.collect { |actor| actor.name }.join(', ') %>
@@ -25,12 +38,6 @@
         <%= raw(@movie.trailer) %>
         <br />
         <br />
-        <% if user_signed_in? %>
-          <div>
-            <strong>Add Rating:</strong>
-            <span class='star-rating' data-score=<%= @rating.rating %>></span>
-          </div>
-        <% end %>
         <div class="clearfix"></div>
         <strong>Description:</strong>
         <br />
@@ -52,33 +59,29 @@
         <br />
         <br />
         <br />
-        <div>
+        <% if user_signed_in? %>
+          <div>
+            <strong>Add Rating:</strong>
+            <span class='star-rating' data-score=<%= @rating.rating %>></span>
+          </div>
+        <% end %>
+        <div class='newline'></div>
+        <span class="movie-reviews">
           <% if user_signed_in? %>
-            <% if @movie.added_to_favorites_by?(current_user.id) %>
-              <div class='glyphicon glyphicon-heart glyphicon-size'></div>
-            <% else %>
-              <span id="movie-<%= @movie.id %>-<%= current_user.id %>"><%= link_to 'Add to Favourites', movie_favourite_movies_path(@movie), class: 'btn btn-md btn-primary ', remote: true, method: :post %></span>
+            <%= render 'show' %>
+            <div id='movie-reviews'></div>
+            <%= form_for([@movie, @review], remote: true) do |f| %>
+              <%= f.label "Review" %><br>
+              <div class="col-xs-6">
+                <%= f.text_area :review, class: 'form-control ', required: true, maxlength: 150, minlength: 5 %>
+              </div>
+              <div class='newline'></div>
+              <%= f.submit class: 'btn btn-md btn-primary '%>
             <% end %>
           <% end %>
-        </div>
-        <div class='newline'></div>
+        </span>
       </div>
       <div class="col-md-2"></div>
-    </div>
-</div>
-
-<div class="movie-reviews">
-  <% if user_signed_in? %>
-    <%= render 'show' %>
-    <div id='movie-reviews'></div>
-    <%= form_for([@movie, @review], remote: true) do |f| %>
-      <%= f.label "Review" %><br>
-      <div class="col-xs-6">
-        <%= f.text_area :review, class: 'form-control ', required: true, maxlength: 150, minlength: 5 %>
-      </div>
-      <div class='newline'></div>
-      <%= f.submit class: 'btn btn-md btn-primary '%>
-    <% end %>
-  <% end %>
+  </div>
 </div>
 

@@ -7,9 +7,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_one :attachment, as: :attachable
-  has_many :report_reviews
-  has_many :rates
-  has_many :favourite_movies
+  has_many :report_reviews, dependent: :destroy
+  has_many :rates, dependent: :destroy
+  has_many :favourite_movies, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   accepts_nested_attributes_for :attachment
 
