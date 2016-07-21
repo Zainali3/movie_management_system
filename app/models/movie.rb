@@ -1,7 +1,5 @@
 class Movie < ActiveRecord::Base
-
-  paginates_per 8
-
+  PER_PAGE = 8
   LATEST = 'latest'
   FEATURED = 'featured'
   TOP_RATED = 'top_rated'
@@ -12,6 +10,7 @@ class Movie < ActiveRecord::Base
   validates :posters, presence: true
 
   scope :featured_movie, -> { where(featured: true) }
+  scope :approved_movie, -> { where(approved: true) }
   scope :latest_movie, -> { order("release_date DESC") }
   scope :movie_order_by_rating, -> { joins(:rates).group('movie_id').order('AVG(rates.rating) DESC') }
 
@@ -43,13 +42,39 @@ class Movie < ActiveRecord::Base
 
   def self.get_movies_type(param)
     if param == LATEST
-      self.latest_movies
+      latest_movie.approved_movie
     elsif param == FEATURED
-      self.featured_movies
+      featured_movie.approved_movie
     elsif param == TOP_RATED
-      self.movie_order_by_rating
+      movie_order_by_rating.approved_movie
     else
-      self.all
+      all
+    end
+  end
+
+  def self.search_movies(params)
+    if params[:type].present?
+      get_movies_type(params[:type])
+    else
+      condition =  {
+                      conditions: {},
+                      with: {},
+                      order: 'release_date DESC',
+                    }
+      condition[:conditions][:genre] = params[:genre] if params[:genre].present?
+      condition[:conditions][:actors] = params[:actors] if params[:actors].present?
+      condition[:with][:release_date] = date_range(params[:start_date],params[:end_date]) if params[:start_date].present?
+      condition[:with][:approved] = true
+
+      search params[:search], condition
+    end
+  end
+
+  def self.date_range(start_date, end_date)
+    if start_date.present? && end_date.present?
+      Date.parse(start_date)..Date.parse(end_date)
+    elsif start_date.present?
+      Date.parse(start_date)..Date.today
     end
   end
 

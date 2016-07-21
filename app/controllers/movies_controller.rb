@@ -4,10 +4,7 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
-
-    @movies = Movie.get_movies_type(params[:type])
-    @movies = @movies.page(params[:page])
-
+    @movies = Movie.search_movies(params).page(params[:page]).per(Movie::PER_PAGE)
   end
 
   def show

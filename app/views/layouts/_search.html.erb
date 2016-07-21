@@ -1,0 +1,42 @@
+<div class='row'>
+  <div class='col-md-2'></div>
+
+  <div class='col-md-8 '>
+    <div class='modal fade' id='myModal' role='dialog'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <div class='panel panel-default'>
+            <div class='panel-heading'>
+              <%= form_tag movies_path, method: :get, class: 'form-inline' do %>
+                <div class='form-group'>
+                  <strong>Movie Name</strong>
+                  <%= text_field_tag :search, params[:search], class:'form-control', placeholder: 'Search Movies' %>
+
+                  <strong>Genre</strong>
+                  <%= text_field_tag :genre, params[:genre], class:'form-control', placeholder: 'Search By Genre' %>
+
+                  <strong>Actors</strong>
+                  <%= text_field_tag :actors, params[:actors], class:'form-control', placeholder: 'Search By Actors' %>
+
+                  <div class='newline'></div>
+
+                  <div class='col-md-2'></div>
+
+                  <strong>Start Date</strong>
+                  <%= date_field_tag :start_date, params[:start_date], class:'form-control', placeholder: 'Search By Start Date' %>
+
+                  <strong>Last Date</strong>
+                  <%= date_field_tag :end_date, params[:end_date], class:'form-control', placeholder: 'Search By End' %>
+                </div>
+
+                <div class='clearfix'></div>
+
+                <div class='newline'></div>
+
+                <%= submit_tag 'Search', class:'btn btn-primary col-md-offset-5'%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
