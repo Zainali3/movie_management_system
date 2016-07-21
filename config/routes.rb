@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :movies
+    end
+  end
 
   # You can have the root of your site routed with "root"
   root 'pages#home'

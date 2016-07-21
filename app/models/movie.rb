@@ -22,7 +22,7 @@ class Movie < ActiveRecord::Base
   has_many :actors, through: :casts
   has_many :reviews, dependent: :destroy
   has_many :rates, dependent: :destroy
-  has_many :favourite_movies
+  has_many :favourite_movies, dependent: :destroy
 
   def first_poster
     posters.first
@@ -61,6 +61,7 @@ class Movie < ActiveRecord::Base
                       with: {},
                       order: 'release_date DESC',
                     }
+      condition[:conditions][:title] = params[:title] if params[:title].present?
       condition[:conditions][:genre] = params[:genre] if params[:genre].present?
       condition[:conditions][:actors] = params[:actors] if params[:actors].present?
       condition[:with][:release_date] = date_range(params[:start_date],params[:end_date]) if params[:start_date].present?
@@ -81,5 +82,15 @@ class Movie < ActiveRecord::Base
   def added_to_favorites_by?(user_id)
     FavouriteMovie.exists?(user_id: user_id, movie_id: self.id)
   end
+
+  def searched_movie
+    {
+      movie: self.as_json,
+      actors: self.actors.as_json,
+      reviews: self.reviews.as_json,
+      rating: self.rates.as_json
+    }
+  end
+
 
 end
