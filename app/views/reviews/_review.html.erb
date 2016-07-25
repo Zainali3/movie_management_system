@@ -4,7 +4,7 @@
   <div class="clearfix"></div>
   <% if review.user_id == current_user.id %>
     <%= link_to 'Edit', edit_movie_review_path(@movie, review), remote: true, class: 'btn btn-primary btn-xs' %>
-    <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs', remote: :true %>
   <% end %>
   <% if review.user_id != current_user.id %>
     <% if review.reported_by?(current_user.id) %>

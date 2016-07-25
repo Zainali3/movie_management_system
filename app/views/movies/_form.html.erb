@@ -16,7 +16,7 @@
 
         <div class="field">
           <%= f.label :title %><br>
-          <%= f.text_field :title , class: 'form-control', required: true, maxlength: 150 %>
+          <%= f.text_field :title , class: 'form-control', required: true, maxlength: 35 %>
         </div>
 
         <div class="field">
@@ -53,8 +53,9 @@
         <br />
         <div class="field">
           <%= f.label :genre %><br>
-          <%= f.text_field :genre , class: 'form-control', required: true, maxlength: 15 %>
+          <%= f.select :genre, options_for_select(Movie::OPTIONS, selected: @movie.genre), {} , { class: 'form-control', required: true } %>
         </div>
+        <div class="newline"></div>
         <div>
           <label>Select Actors </label>
           <br />

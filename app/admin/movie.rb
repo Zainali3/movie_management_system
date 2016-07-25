@@ -38,7 +38,7 @@ ActiveAdmin.register Movie do
       f.input :featured
       f.input :approved
       f.input :duration
-      f.input :genre
+      f.input :genre, as: :select, collection: Movie::OPTIONS
       f.input :release_date, as: :datepicker
       f.input :actors
       f.has_many :posters, heading: 'Posters', new_record: 'Add Poster' do |attachment|

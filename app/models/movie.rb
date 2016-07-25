@@ -1,13 +1,16 @@
 class Movie < ActiveRecord::Base
+
   PER_PAGE = 4
   LATEST = 'latest'
   FEATURED = 'featured'
   TOP_RATED = 'top_rated'
+  OPTIONS = %w(Thriller Comedy Romance Action Crime)
 
-  validates :title, presence: true, uniqueness: true, length: { maximum: 150 }
+  validates :title, presence: true, uniqueness: true, length: { maximum: 35 }
   validates :trailer, presence: true
   validates :description, presence: true
   validates :posters, presence: true
+  validates :genre, presence: true
 
   scope :featured_movie, -> { where(featured: true) }
   scope :approved_movie, -> { where(approved: true) }
@@ -60,6 +63,8 @@ class Movie < ActiveRecord::Base
                       conditions: {},
                       with: {},
                       order: 'release_date DESC',
+                      per_page: 4,
+                      page: params[:page]
                     }
       condition[:conditions][:title] = params[:title] if params[:title].present?
       condition[:conditions][:genre] = params[:genre] if params[:genre].present?
@@ -91,6 +96,5 @@ class Movie < ActiveRecord::Base
       rating: self.rates.as_json
     }
   end
-
 
 end
