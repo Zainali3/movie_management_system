@@ -14,9 +14,8 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @review = @movie.reviews.build
-    @rating = @movie.get_ratings(current_user) if user_signed_in?
-
+      @review = @movie.reviews.build
+      @rating = @movie.get_ratings(current_user) if user_signed_in?
   end
 
   def new
@@ -63,7 +62,7 @@ class MoviesController < ApplicationController
 
   private
     def set_movie
-      @movie = Movie.find_by_id(params[:id])
+      @movie = Movie.find(params[:id])
     end
 
     def movie_params

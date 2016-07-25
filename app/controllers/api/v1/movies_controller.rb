@@ -3,6 +3,7 @@ module Api
     class MoviesController < ApplicationController
       rescue_from ActiveRecord::RecordNotFound, with: :not_found
       respond_to :json
+      before_action :authenticate_user!
 
       def index
         if (params[:title] || params[:genre] || params[:actors] || params[:release_date])

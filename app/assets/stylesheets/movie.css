@@ -1,4 +1,5 @@
 .fixed-height {
+  height:max-content;
   min-height: 550px;
 }
 
@@ -45,4 +46,20 @@
 
 .newline {
   margin-bottom: 20px;
+}
+
+html, body {
+  height: 100%;
+}
+
+.footer
+{
+  width: 100%;
+  border: 1px solid grey;
+
+}
+
+.height-100 {
+  height: max-content;
+  min-height: 100%;
 }

@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base
-  PER_PAGE = 8
+  PER_PAGE = 4
   LATEST = 'latest'
   FEATURED = 'featured'
   TOP_RATED = 'top_rated'
@@ -48,12 +48,12 @@ class Movie < ActiveRecord::Base
     elsif param == TOP_RATED
       movie_order_by_rating.approved_movie
     else
-      all
+      all.approved_movie
     end
   end
 
   def self.search_movies(params)
-    if params[:type].present?
+    if params[:type].present? || (params[:title].nil? && params[:genre].nil? && params[:actors].nil? && params[:start_date].nil?)
       get_movies_type(params[:type])
     else
       condition =  {
