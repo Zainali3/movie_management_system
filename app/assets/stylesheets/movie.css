@@ -63,3 +63,8 @@ html, body {
   height: max-content;
   min-height: 100%;
 }
+
+.common-search {
+  margin-top: 10px;
+  margin-right: 10px;
+}
