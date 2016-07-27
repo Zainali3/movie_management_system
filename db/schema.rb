@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718050944) do
+ActiveRecord::Schema.define(version: 20160727063019) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160718050944) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "actors", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",       limit: 40,    null: false
     t.text     "biography",  limit: 65535
     t.string   "gender",     limit: 255
     t.datetime "created_at",               null: false
@@ -98,15 +98,15 @@ ActiveRecord::Schema.define(version: 20160718050944) do
   add_index "favouritemovies", ["user_id"], name: "index_favouritemovies_on_user_id", using: :btree
 
   create_table "movies", force: :cascade do |t|
-    t.string   "title",        limit: 255
-    t.text     "trailer",      limit: 65535
-    t.text     "description",  limit: 65535
+    t.string   "title",        limit: 35,    null: false
+    t.text     "trailer",      limit: 65535, null: false
+    t.text     "description",  limit: 65535, null: false
     t.boolean  "featured"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "duration",     limit: 4
-    t.string   "genre",        limit: 50
-    t.date     "release_date"
+    t.integer  "duration",     limit: 4,     null: false
+    t.string   "genre",        limit: 30,    null: false
+    t.date     "release_date",               null: false
     t.boolean  "approved"
   end
 
