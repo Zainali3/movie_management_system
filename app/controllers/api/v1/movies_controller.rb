@@ -3,13 +3,16 @@ module Api
     class MoviesController < ApplicationController
       rescue_from ActiveRecord::RecordNotFound, with: :not_found
       respond_to :json
-      before_action :authenticate_user!
+
+      before_action :authenticate_request
 
       def index
-        if (params[:title] || params[:genre] || params[:actors] || params[:release_date])
+        if (params[:title] || params[:genre] || params[:actors] || params[:start_date])
           respond_with Movie.search_movies(params)
         else
-          respond_with Movie.all
+          @movies = Movie.all
+          @movies = @movies.page(params[:page]).per Movie::PER_PAGE
+          respond_with @movies
         end
       end
 
@@ -20,6 +23,13 @@ module Api
 
       def not_found
         render json: "Record Not Found", status: 404
+      end
+
+      def authenticate_request
+        if request && request.headers && request.headers['Authorization']
+          return if request.headers['Authorization'] == User::TOKEN
+        end
+        head :unauthorized
       end
     end
   end

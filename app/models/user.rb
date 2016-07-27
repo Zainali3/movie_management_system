@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  TOKEN = 'qasdfghjyuiop0643werxv'
+
   has_one :attachment, as: :attachable
   has_many :report_reviews, dependent: :destroy
   has_many :rates, dependent: :destroy
