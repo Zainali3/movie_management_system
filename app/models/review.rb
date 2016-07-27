@@ -3,7 +3,7 @@ class Review < ActiveRecord::Base
   belongs_to :user
   has_many :report_reviews, dependent: :destroy
   validates :review, presence: true,
-                    length: { minimum: 5 }
+                    length: { minimum: 5, maximum: 150 }
 
   def reported_by?(user_id)
     self.report_reviews.where(user_id: user_id).present?
