@@ -15,31 +15,31 @@
         <% end %>
 
         <div class="field">
-          <%= f.label :title %><br>
+          <%= f.label :title %>
           <%= f.text_field :title , class: 'form-control', required: true, maxlength: 35 %>
         </div>
-
+        <div class="newline"></div>
         <div class="field">
-          <%= f.label :trailer %><br>
+          <%= f.label :trailer %>
           <%= f.text_area :trailer, class: 'form-control', required: true %>
         </div>
-
+        <div class="newline"></div>
         <div class="field">
-          <%= f.label :release_date %><br>
+          <%= f.label :release_date %>
           <%= f.date_field :release_date, required: true, class: 'form-control' %>
         </div>
-
+        <div class="newline"></div>
         <div class="field">
           <%= f.label 'duration (in mins)' %>
           <%= f.number_field :duration, required: true, class: 'form-control' %>
         </div>
-
+        <div class="newline"></div>
 
         <div class="field">
-          <%= f.label :description %><br>
+          <%= f.label :description %>
           <%= f.cktext_area :description, rows: 10, required: true %>
         </div>
-        <br />
+        <div class="newline"></div>
         <div class="field">
           <%= f.fields_for :posters do |poster| %>
           <% unless poster.object.image.url(:medium) == 'medium/missing.png' %>
@@ -50,18 +50,18 @@
           <% end %>
           <p> <%= f.link_to_add "Add poster", :posters, class: 'btn btn-primary' %></p>
         </div>
-        <br />
+        <div class="newline"></div>
         <div class="field">
-          <%= f.label :genre %><br>
+          <%= f.label :genre %><div class="newline"></div>
           <%= f.select :genre, options_for_select(Movie::OPTIONS, selected: @movie.genre), {} , { class: 'form-control', required: true } %>
         </div>
         <div class="newline"></div>
         <div>
           <label>Select Actors </label>
-          <br />
+          <div class="newline"></div>
           <%= f.select :actor_ids, options_from_collection_for_select(Actor.all, 'id', 'name', @selected_movies), {}, { multiple: true, class: 'form-control', required: true } %>
-          <br/ >
-          <br />
+          <div class="newline"></div>
+          <div class="newline"></div>
         </div>
 
         <%= f.submit "Submit", class: 'btn btn-success' %>

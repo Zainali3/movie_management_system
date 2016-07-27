@@ -1,7 +1,7 @@
 <div>
   <% if user_signed_in? %>
     <%= form_for([@movie, @review], remote: true) do |f| %>
-      <%= f.label :review %><br>
+      <%= f.label :review %><div class="newline"></div>
       <%= f.text_area :review, class: 'form-group' %>
       <%= f.submit 'Submit', class: 'btn btn-default' %>
     <% end %>
