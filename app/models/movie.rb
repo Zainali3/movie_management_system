@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
 
-  PER_PAGE = 4
+  PER_PAGE = 8
   LATEST = 'latest'
   FEATURED = 'featured'
   TOP_RATED = 'top_rated'
@@ -63,7 +63,7 @@ class Movie < ActiveRecord::Base
                       conditions: {},
                       with: {},
                       order: 'release_date DESC',
-                      per_page: 4,
+                      per_page: 8,
                       page: params[:page]
                     }
       condition[:conditions][:title] = params[:title] if params[:title].present?
