@@ -4,13 +4,11 @@ class FavouriteMoviesController < ApplicationController
   before_action :favourite_movie_already_exist, only: [:create]
 
   def create
-      if !favourite_movie_already_exist
-        @favourite = @movie.favourite_movies.new
-        @favourite.user = current_user
-        @favourite.save
-      end
-
+    @favourite = @movie.favourite_movies.new
+    @favourite.user = current_user
+    @favourite.save
   end
+
 
   private
 
