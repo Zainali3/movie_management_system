@@ -10,10 +10,10 @@
               <%= form_tag movies_path, method: :get, class: 'form-inline' do %>
                 <div class='form-group'>
                   <strong>Movie Name</strong>
-                  <%= text_field_tag :search, params[:search], class:'form-control', placeholder: 'Search Movies' %>
+                  <%= text_field_tag :title, params[:title], class:'form-control', placeholder: 'Search Movies' %>
 
                   <strong>Genre</strong>
-                  <%= text_field_tag :genre, params[:genre], class:'form-control', placeholder: 'Search By Genre' %>
+                  <%= select_tag :genre, options_for_select(Movie::OPTIONS), include_blank: true, class:'form-control' %>
 
                   <strong>Actors</strong>
                   <%= text_field_tag :actors, params[:actors], class:'form-control', placeholder: 'Search By Actors' %>
@@ -35,10 +35,10 @@
 
                 <%= submit_tag 'Search', class:'btn btn-primary col-md-offset-5'%>
             <% end %>
+            </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
-</div>
-</div>
 </div>
