@@ -40,8 +40,7 @@
 }
 
 .glyphicon-size {
-  font-size: 5.0em;
-  color: red;
+  font-size: 4.0em;
 }
 
 .newline {
@@ -67,4 +66,8 @@ html, body {
 .common-search {
   margin-top: 10px;
   margin-right: 10px;
+}
+
+.glyphicon-color{
+  color: red;
 }
