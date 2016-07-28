@@ -89,12 +89,17 @@ class Movie < ActiveRecord::Base
     FavouriteMovie.exists?(user_id: user_id, movie_id: self.id)
   end
 
-  def searched_movie
+  def searched_movie(base_url)
+    movie_attachments = []
+    posters.each do |poster|
+      movie_attachments.push([base_url, poster.image.url(:medium)].join)
+    end
     {
       movie: self.as_json,
       actors: self.actors.as_json,
       reviews: self.reviews.as_json,
-      rating: self.rates.as_json
+      rating: self.rates.as_json,
+      posters: movie_attachments
     }
   end
 

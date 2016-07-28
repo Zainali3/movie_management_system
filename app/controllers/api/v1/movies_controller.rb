@@ -18,7 +18,7 @@ module Api
 
       def show
         @movie = Movie.find(params[:id])
-        respond_with @movie.searched_movie
+        respond_with @movie.searched_movie(request.env['HTTP_HOST'])
       end
 
       def not_found
