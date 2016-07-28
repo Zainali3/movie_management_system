@@ -44,14 +44,15 @@ class Movie < ActiveRecord::Base
   end
 
   def self.get_movies_type(param)
+    movie = Movie.includes(:posters)
     if param == LATEST
-      latest_movie.approved_movie
+      movie.latest_movie.approved_movie
     elsif param == FEATURED
-      featured_movie.approved_movie
+      movie.featured_movie.approved_movie
     elsif param == TOP_RATED
-      movie_order_by_rating.approved_movie
+      movie.movie_order_by_rating.approved_movie
     else
-      all.approved_movie
+      movie.all.approved_movie
     end
   end
 
