@@ -70,6 +70,8 @@
         </div>
       <% end %>
       <div class='newline'></div>
+      <%= link_to 'Edit Movie', edit_movie_path(@movie), class: 'btn btn-danger' %>
+      <div class='newline'></div>
       <span class="movie-reviews">
         <% if user_signed_in? %>
           <%= render 'show' %>
