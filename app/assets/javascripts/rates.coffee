@@ -4,7 +4,7 @@
 set_average = (avg) ->
   $('.avg-star-rating').raty 'set', score: avg
 
-$(document).on 'page:load ready', ->
+$(document).on 'ready page:load', ->
   $('.rating').raty
     path: '/assets'
     readOnly: true
@@ -34,7 +34,8 @@ $(document).on 'page:load ready', ->
             rating: score
           dataType: 'json'
           success: (data) ->
-            set_average(score)
+            set_average(data.average)
+            $('#movie-container').data 'rating', data.id
       else
         $.ajax
           type: 'PATCH'
