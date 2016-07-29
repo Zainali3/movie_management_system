@@ -17,7 +17,7 @@
 
           <div class="field">
             <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, class: 'form-control', maxlength: 150, disabled: :true %>
+            <%= f.email_field :email, autofocus: true, class: 'form-control', maxlength: 150 %>
           </div>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
